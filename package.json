@@ -6,11 +6,12 @@
   "scripts": {
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
-    "test": "NODE_ENV=test jest --verbose --runInBand tests/",
+    "test": "NODE_ENV=test jest --runInBand tests/",
     "lint": "eslint . --fix",
-    "start:test": "NODE_ENV=test node index.js",
-    "start:frontend": "cd frontend && npm run start-noBrowser",
-    "start:cypress": "concurrently \"npm run start:test\" \"npm run start:frontend\""
+    "start:backend-cypress-prep": "NODE_ENV=test node index.js",
+    "start:frontend-cypress-prep": "cd frontend && npm run start-noBrowser",
+    "start:cypress-prep": "concurrently \"npm run start:backend-cypress-prep\" \"npm run start:frontend-cypress-prep\"",
+    "start:cypress-test": "cd frontend && npm run test:e2e"
   },
   "author": "",
   "license": "ISC",
