@@ -65,14 +65,22 @@ jobs:
         run: |
           cd frontend && npm run test
 
-      - name: Run Cypress e2e test
+      - name: Start Backend for e2e Tests
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           PORT: 3003
           SECRET: ${{ secrets.MONGODB_SECRET }}
+        run: npm run start:test &
+        
+      - name: Start Frontend for e2e Tests
+        run: cd frontend && npm start-noBrowser &
+      
+      - name: Delay for Server Startup
+        run: sleep 30
+      
+      - name: Run Cypress e2e test
         uses: cypress-io/github-action@v5
         with:
           command: cd frontend && npm run test:e2e
-          start: npm run start:cypress
           wait-on: http://localhost:3000
+        
