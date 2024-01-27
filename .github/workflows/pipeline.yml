@@ -17,11 +17,29 @@ jobs:
     outputs:
       skip_deploy: ${{ env.SKIP_DEPLOY }}
       deployed_url: ${{ steps.deploy.outputs.deployed_url }}
+
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.10.0
+        with:
+          mongodb-version: '5.0'
+
       - name: Get Committer Username
         id: get_username
         run: |
@@ -29,22 +47,28 @@ jobs:
           COMMITTER_NAME=$(git log -2 --pretty=format:'%an' | tail -n 1)
           echo "Committer Name: $COMMITTER_NAME"
           echo "username=$COMMITTER_NAME" >> $GITHUB_OUTPUT
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+
       - name: Install Dependencies
         run: |
           npm install
           cd frontend && npm install
+
       - name: Check style
         run: |
           npm run lint
           cd frontend && npm run eslint
-      - name: Test
+      
+      - name: Run Test
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          PORT: 3003
+          SECRET: ${{ secrets.MONGODB_SECRET }}
         run: |
           npm run test
           cd frontend && npm run test
-      - name: e2e test
+
+      - name: Run e2e test
         uses: cypress-io/github-action@v5
         with:
           command: cd frontend && npm run test:e2e
