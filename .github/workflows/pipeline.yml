@@ -1,0 +1,49 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
+    
+jobs:
+  simple_deployment:
+    runs-on: ubuntu-latest
+    env:
+      SKIP_DEPLOY: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') && 'true' || 'false' }}
+    outputs:
+      skip_deploy: ${{ env.SKIP_DEPLOY }}
+      deployed_url: ${{ steps.deploy.outputs.deployed_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get Committer Username
+        id: get_username
+        run: |
+          git log -5
+          COMMITTER_NAME=$(git log -2 --pretty=format:'%an' | tail -n 1)
+          echo "Committer Name: $COMMITTER_NAME"
+          echo "username=$COMMITTER_NAME" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: |
+          npm install
+          cd ~/frontend
+          npm install
+      - name: Check style
+        run: |
+          npm run lint
+          cd ~/frontend
+          npm run eslint
+      - name: Test
+        run: |
+          npm run test
+          cd ~/frontend
+          npm run test
