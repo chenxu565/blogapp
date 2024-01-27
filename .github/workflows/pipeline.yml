@@ -52,7 +52,7 @@ jobs:
           npm run lint
           cd frontend && npm run eslint
       
-      - name: Run Test
+      - name: Run Backend Jest Test
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
@@ -60,9 +60,12 @@ jobs:
           SECRET: ${{ secrets.MONGODB_SECRET }}
         run: |
           npm run test
+
+      - name: Run Frontend Jest Test
+        run: |
           cd frontend && npm run test
 
-      - name: Run e2e test
+      - name: Run Cypress e2e test
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
