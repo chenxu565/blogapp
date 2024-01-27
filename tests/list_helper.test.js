@@ -111,40 +111,10 @@ describe('favorite blog', () => {
   })
 })
 
-describe('favorite blog', () => {
-  const listWithOneBlog = [blogs[0]]
-
-  test('when list has only one blog equals the author of the one', () => {
-    const result = listHelper.mostBlogs(listWithOneBlog)
-    const withMost = {
-      author: 'Michael Chan',
-      blogs: 1,
-    }
-
-    expect(result).toEqual(withMost)
-  })
-
-  test('is undefined when the list is emtpy', () => {
-    const result = listHelper.mostBlogs([])
-    expect(result).toBe(undefined)
-  })
-
-  test('when list has many blogs is the author that has most', () => {
-    const result = listHelper.mostBlogs(blogs)
-
-    const withMost = {
-      author: 'Robert C. Martin',
-      blogs: 3,
-    }
-
-    expect(result).toEqual(withMost)
-  })
-})
-
 describe('most likes', () => {
   const listWithOneBlog = [blogs[0]]
 
-  test("when list has only one blog equals the author's likes of the one", () => {
+  test('when list has only one blog equals the author`s likes of the one', () => {
     const result = listHelper.mostLikes(listWithOneBlog)
     const withMost = {
       author: 'Michael Chan',

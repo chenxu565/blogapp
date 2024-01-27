@@ -123,6 +123,8 @@ describe('blogs api', () => {
           .send(blog)
           .expect(400)
           .expect('Content-Type', /application\/json/)
+
+        expect(response.body.error).toBeDefined()
       })
 
       test('if author is missing, creation fails', async () => {
@@ -137,6 +139,8 @@ describe('blogs api', () => {
           .send(blog)
           .expect(400)
           .expect('Content-Type', /application\/json/)
+
+        expect(response.body.error).toBeDefined()
       })
     })
   })
@@ -162,7 +166,7 @@ describe('blogs api', () => {
     })
 
     test('can be deleted by the creator', async () => {
-      const blogsBefore = await blogsInDb()
+      // const blogsBefore = await blogsInDb()
 
       await api
         .delete(`/api/blogs/${id}`)
@@ -175,7 +179,7 @@ describe('blogs api', () => {
     })
 
     test('can not be deleted without valid auth header', async () => {
-      const blogsBefore = await blogsInDb()
+      // const blogsBefore = await blogsInDb()
 
       await api.delete(`/api/blogs/${id}`).expect(401)
 
@@ -192,7 +196,7 @@ describe('blogs api', () => {
         password: 'secret',
       }
 
-      const response = await api
+      await api
         .post('/api/users')
         .send(user)
         .expect(201)
