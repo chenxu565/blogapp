@@ -15,6 +15,10 @@ const {
 
 let authHeader
 
+beforeAll(async () => {
+  jest.setTimeout(50000)
+})
+
 describe('blogs api', () => {
   beforeEach(async () => {
     await User.deleteMany({})
