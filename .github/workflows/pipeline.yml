@@ -75,9 +75,6 @@ jobs:
       - name: Start Frontend for e2e Tests
         run: npm run start:frontend-cypress-prep &
       
-      - name: Delay for Server Startup
-        run: sleep 30
-      
       - name: Run Cypress e2e test
         uses: cypress-io/github-action@v5
         with:
