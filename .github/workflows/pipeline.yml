@@ -44,3 +44,11 @@ jobs:
         run: |
           npm run test
           cd frontend && npm run test
+      - name: e2e test
+        uses: cypress-io/github-action@v5
+        with:
+          command: cd frontend && npm run test:e2e
+          start: |
+            npm run start:test &
+            cd frontend && npm run start
+          wait-on: http://localhost:3000
