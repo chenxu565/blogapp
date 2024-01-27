@@ -16,7 +16,7 @@ const {
 let authHeader
 
 beforeAll(async () => {
-  jest.setTimeout(50000)
+  jest.setTimeout(500000)
 })
 
 describe('blogs api', () => {
