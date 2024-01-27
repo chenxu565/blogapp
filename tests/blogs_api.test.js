@@ -17,8 +17,15 @@ let authHeader
 
 describe('blogs api', () => {
 
+  async function waitForMongoDBConnection(mongoose) {
+    while (mongoose.connection.readyState !== 1) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+
   beforeAll(async () => {
     jest.setTimeout(500000)
+    await waitForMongoDBConnection(mongoose)
   })
 
   beforeEach(async () => {
