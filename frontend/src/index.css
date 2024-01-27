@@ -1,0 +1,9 @@
+.menu {
+  display: flex;
+  align-items: center;
+  background-color: grey;
+}
+
+.inlineElement {
+  display: inline-block;
+}
