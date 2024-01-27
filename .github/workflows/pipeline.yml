@@ -81,3 +81,22 @@ jobs:
           command: npm run start:cypress-test
           wait-on: http://localhost:3000
         
+      - name: Build Frontend
+        id: build
+        run: |
+          cd frontend
+          npm run build
+          cd ..
+          cp -r frontend/build .
+
+      - name: Broadcast to Discord if build failed
+        if: ${{ failure() && steps.build.outcome == 'failure' }}
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          text: Build failed!
+          description: |
+            commit
+            https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }} by ${{ steps.get_username.outputs.username }} broke the build.
+          details: ''
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
