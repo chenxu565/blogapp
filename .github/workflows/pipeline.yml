@@ -40,9 +40,11 @@ jobs:
         run: |
           npm run lint
           cd frontend && npm run eslint
-      - name: Test
+      - name: Test backend
         run: |
           npm run test
+      - name: Test frontend
+        run: |
           cd frontend && npm run test
       - name: e2e test
         uses: cypress-io/github-action@v5
