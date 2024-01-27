@@ -35,15 +35,12 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          cd ~/frontend
-          npm install
+          cd frontend && npm install
       - name: Check style
         run: |
           npm run lint
-          cd ~/frontend
-          npm run eslint
+          cd frontend && npm run eslint
       - name: Test
         run: |
           npm run test
-          cd ~/frontend
-          npm run test
+          cd frontend && npm run test
