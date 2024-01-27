@@ -15,11 +15,12 @@ const {
 
 let authHeader
 
-beforeAll(async () => {
-  jest.setTimeout(500000)
-})
-
 describe('blogs api', () => {
+
+  beforeAll(async () => {
+    jest.setTimeout(500000)
+  })
+
   beforeEach(async () => {
     await User.deleteMany({})
 
