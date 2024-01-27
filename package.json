@@ -9,9 +9,8 @@
     "test": "NODE_ENV=test jest --verbose --runInBand tests/",
     "lint": "eslint . --fix",
     "start:test": "NODE_ENV=test node index.js",
-    "start:backend-cypress": "npm run start:test",
     "start:frontend": "cd frontend && npm run start-noBrowser",
-    "start:cypress": "concurrently \"npm run start:backend-cypress\" \"npm run start:frontend\""
+    "start:cypress": "concurrently \"npm run start:test\" \"npm run start:frontend\""
   },
   "author": "",
   "license": "ISC",
