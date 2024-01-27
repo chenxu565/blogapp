@@ -16,6 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-noBrowser": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --env=jsdom",
     "eject": "react-scripts eject",

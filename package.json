@@ -8,7 +8,10 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand tests/",
     "lint": "eslint . --fix",
-    "start:test": "NODE_ENV=test node index.js"
+    "start:test": "NODE_ENV=test node index.js",
+    "start:backend-cypress": "npm run start:test",
+    "start:frontend": "cd frontend && npm run start-noBrowser",
+    "start:cypress": "concurrently \"npm run start:backend-cypress\" \"npm run start:frontend\""
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +28,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "8.9.0",
     "eslint-plugin-jest": "^27.6.3",
