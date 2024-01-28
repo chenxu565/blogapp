@@ -100,6 +100,9 @@ jobs:
             https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }} by ${{ steps.get_username.outputs.username }} broke the build.
           details: ''
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: List root directory
+        run: ls -la
       
       - name: Prepare to deploy to fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
