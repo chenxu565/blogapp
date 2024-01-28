@@ -17,3 +17,28 @@ This Blog App is my implementation of a full-stack web application during the [F
 - Responsive design
 
 ## App Architecture
+```mermaid
+graph TD
+    subgraph Frontend [React Frontend]
+        F1[App Component]
+        F2[Blog Component]
+        F3[User Component]
+    end
+
+    subgraph Backend [Node.js/Express Backend]
+        B1[Blog Controller]
+        B2[User Controller]
+        B3[Authentication Controller]
+        DB[(MongoDB Database)]
+    end
+
+    F1 -->|API Requests| B1
+    F2 -->|API Requests| B1
+    F3 -->|API Requests| B2
+    B1 -->|CRUD Operations| DB
+    B2 -->|CRUD Operations| DB
+    B3 -->|Auth| DB
+
+    style Frontend fill:#f9f,stroke:#333,stroke-width:2px
+    style Backend fill:#bbf,stroke:#333,stroke-width:2px
+```
