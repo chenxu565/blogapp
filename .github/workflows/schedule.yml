@@ -1,12 +1,6 @@
-name: Schedule health check
+name: Scheduled health check
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches: [ main ]
-    types: [ opened, synchronize ]
   schedule:
     - cron: '55 5 * * *'
 
