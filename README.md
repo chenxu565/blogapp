@@ -8,6 +8,7 @@ This Blog App is my implementation of a full-stack web application during the [F
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
 - **Testing**: Jest, Cypress
+- **Linting**: ESLint, Prettier
 - **CI/CD**: GitHub Actions
 - **Deployment**: Fly.io
 
