@@ -107,3 +107,10 @@ jobs:
       - name: Prepare to deploy to fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
         if: ${{ github.event_name == 'push' && env.SKIP_DEPLOY == 'false' }}
+      
+      - name: Deploy to fly.io
+        id: deploy
+        run: flyctl deploy --remote-only
+        if: ${{ github.event_name == 'push' && env.SKIP_DEPLOY == 'false' }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
