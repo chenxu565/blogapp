@@ -148,7 +148,7 @@ jobs:
         if: success()
         with:
           severity: info
-          text: A new version of Pokedex deployed!
+          text: A new version of BlogApp deployed
           description: |
             to ${{ needs.simple_deployment_pipeline.outputs.deployed_url }} by ${{ steps.get_username.outputs.username }}.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
