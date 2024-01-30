@@ -42,10 +42,13 @@ jobs:
           echo "Committer Name: $COMMITTER_NAME"
           echo "username=$COMMITTER_NAME" >> $GITHUB_OUTPUT
 
-      - name: Install Dependencies
+      - name: Install Backend Dependencies
         run: |
-          npm install
-          cd frontend && npm install
+          npm ci
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend && npm ci
 
       - name: Check style
         run: |
