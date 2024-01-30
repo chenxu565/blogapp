@@ -89,8 +89,6 @@ jobs:
         run: |
           cd frontend
           npm run build
-          cd ..
-          cp -r frontend/build .
 
       - name: Broadcast to Discord if build failed
         if: ${{ failure() && steps.build.outcome == 'failure' }}
@@ -103,6 +101,10 @@ jobs:
             https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }} by ${{ steps.get_username.outputs.username }} broke the build.
           details: ''
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Copy Frontend Build to Root
+        run: |
+          cp -r frontend/build .
 
       - name: List root directory
         run: ls -la
