@@ -1,5 +1,25 @@
+# Dependency directories
 node_modules
-fly.toml
+
+# Environment files
+.env
+
+# Docker and Fly.io specific files
 Dockerfile
 .dockerignore
-.env
+fly.toml
+
+# Git and GitHub specific files and directories
+.git
+.github
+
+# Various configuration files (typically used for development)
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc
+
+# Other files and directories typically not required in production
+README.md
+*.md
+*.log
